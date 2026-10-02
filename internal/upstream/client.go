@@ -1576,7 +1576,7 @@ type userResourceResp struct {
 // 与解析逻辑原本 100% 重复）。realm 感知继承 billingMeterPaths：global 账号打
 // workbuddy.ai /billing/meter/*（404 fallback /v2），CN 账号维持
 // /v2/billing/meter/get-user-resource（现状逐字，零回归）。
-func (c *Client) getUserResourceBody(a *auth.Auth) (*userResourceResp, error) {
+func (c *Client) getUserResourceData(a *auth.Auth) (json.RawMessage, error) {
 	now := time.Now()
 	body := map[string]any{
 		"PageNumber":               1,
@@ -1586,7 +1586,11 @@ func (c *Client) getUserResourceBody(a *auth.Auth) (*userResourceResp, error) {
 		"PackageEndTimeRangeBegin": now.Format(packageEndLayout),
 		"PackageEndTimeRangeEnd":   now.Add(365 * 101 * 24 * time.Hour).Format(packageEndLayout),
 	}
-	data, err := c.billingMeterJSON(a, c.billingMeterPaths(a), http.MethodPost, body)
+	return c.billingMeterJSON(a, c.billingMeterPaths(a), http.MethodPost, body)
+}
+
+func (c *Client) getUserResourceBody(a *auth.Auth) (*userResourceResp, error) {
+	data, err := c.getUserResourceData(a)
 	if err != nil {
 		return nil, err
 	}

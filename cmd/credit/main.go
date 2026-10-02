@@ -37,6 +37,9 @@ type accountResult struct {
 }
 
 func main() {
+	if len(os.Args) == 2 && os.Args[1] == "--check-auth" {
+		os.Exit(runAuthHealth())
+	}
 	pretty := len(os.Args) > 1 && os.Args[1] == "-pretty"
 	authDir := "./auths"
 	if v := os.Getenv("WB2A_AUTH_DIR"); v != "" {
