@@ -319,3 +319,7 @@ curl -s http://localhost:7863/v1/chat/completions \
 - 再分发（源码或二进制形式）时，须保留原仓库的 MIT 版权声明与许可声明，并在 NOTICE 或 README 中注明原始出处 `https://github.com/Sliverkiss/workbuddy2api`
 - 本项目不授予任何上游（CodeBuddy）接口或服务的权利；使用者仍需自行遵守上游服务条款
 - 本项目的使用同时受上方**免责声明**约束；如免责声明与 MIT License 存在不一致，以免责声明为准
+
+## 配置与运行状态恢复
+
+加密备份、账号池/停用意图、隔离恢复测试及人工登录的边界见 [docs/runtime-recovery.md](docs/runtime-recovery.md)。
